@@ -1,0 +1,19 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  variables:
+    CONJUR_HOSTNAME: "https://conjur.demo.cybr"
+    CONJUR_AUTHENTICATE_URL: "$CONJUR_HOSTNAME/authn-jwt/gitlab/devsecops/authenticate"
+    CONJUR_RETRIEVE_URL: "$CONJUR_HOSTNAME/secrets/devsecops/variable"
+  script:
+    - echo $CI_JOB_JWT | base64
+    - echo "Authenticating with Job's JWT to Conjur"
+    - export SESSION_TOKEN=$(curl -k -s -X POST $CONJUR_AUTHENTICATE_URL -H "Content-Type:application/x-www-form-urlencoded" -H "Accept-Encoding:base64" --data-urlencode "jwt=${CI_JOB_JWT}")
+    - echo $SESSION_TOKEN
+    - echo "Retrieving Conjur Variable"
+    - export GIT_USER=$(curl -k -s -H "Authorization:Token token=\"${SESSION_TOKEN}\"" $CONJUR_RETRIEVE_URL/ci/gitlab/secrets/gitlab_username)
+    - export GIT_PASSWORD=$(curl -k -s -H "Authorization:Token token=\"${SESSION_TOKEN}\"" $CONJUR_RETRIEVE_URL/ci/gitlab/secrets/gitlab_password)
+    - echo $GIT_USER
+    - echo $GIT_PASSWORD

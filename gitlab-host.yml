@@ -1,0 +1,17 @@
+- !policy
+  id: gitlab-apps
+  body:
+    - !group
+
+    - &hosts
+      - !host
+        id: demos
+        annotations:
+          authn-jwt/gitlab/project_id: 2
+          authn-jwt/gitlab/ref: master
+          authn-jwt/gitlab/project_path: demos/hello-ci
+
+
+    - !grant
+      role: !group
+      members: *hosts

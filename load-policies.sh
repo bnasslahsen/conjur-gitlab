@@ -21,10 +21,11 @@ else
 fi
 
 #We populate the jwks-uri variable with the JWT provider URL:
-conjur variable set -i conjur/authn-jwt/$CONJUR_AUTHENTICATOR_ID/jwks-uri -v "$GITLAB_JWKS"
 conjur variable set -i conjur/authn-jwt/$CONJUR_AUTHENTICATOR_ID/token-app-property -v "$GITLAB_TOKEN_APP"
 conjur variable set -i conjur/authn-jwt/$CONJUR_AUTHENTICATOR_ID/identity-path -v "$GITLAB_IDENTITY"
 conjur variable set -i conjur/authn-jwt/$CONJUR_AUTHENTICATOR_ID/issuer -v "$GITLAB_ISSUER"
+curl -k $GITLAB_JWKS >  jwks.json
+conjur variable set -i conjur/authn-jwt/$CONJUR_AUTHENTICATOR_ID/public-keys -v "{\"type\":\"jwks\", \"value\":$(cat jwks.json)}"
 
 envsubst < gitlab-host.yml > gitlab-host.yml.tmp
 conjur policy update -f gitlab-host.yml.tmp -b root

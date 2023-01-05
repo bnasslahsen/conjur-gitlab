@@ -1,0 +1,3 @@
+### conjur policy update -b root -f delete.yml
+- !delete
+  record: !variable conjur/authn-jwt/gitlab-ci/jwks-uri

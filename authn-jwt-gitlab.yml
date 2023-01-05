@@ -6,11 +6,12 @@
       #Uncomment either 'public-keys' OR 'jwks-uri'
       #- !variable
       #    id: public-keys
-    - !variable jwks-uri
+      #- !variable jwks-uri
     #Optional variables
     #Uncomment one or all of the following optional variables.
     #Note: If you uncomment 'token-app-property' you must also uncomment 'identity-path',
     #and vice versa;
+    - !variable public-keys
     - !variable issuer
     - !variable token-app-property
     - !variable identity-path

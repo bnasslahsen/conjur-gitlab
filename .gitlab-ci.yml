@@ -5,7 +5,7 @@ build-job:       # This job runs in the build stage, which runs first.
   stage: build
   variables:
     CONJUR_HOSTNAME: "https://conjur.demo.cybr"
-    CONJUR_AUTHENTICATE_URL: "$CONJUR_HOSTNAME/authn-jwt/gitlab/devsecops/authenticate"
+    CONJUR_AUTHENTICATE_URL: "$CONJUR_HOSTNAME/authn-jwt/gitlab-ci/devsecops/authenticate"
     CONJUR_RETRIEVE_URL: "$CONJUR_HOSTNAME/secrets/devsecops/variable"
   script:
     - echo $CI_JOB_JWT | base64

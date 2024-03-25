@@ -1,0 +1,12 @@
+alpine:
+  id_tokens:
+    ID_TOKEN_1:
+      aud: https://gitlab.demo.cybr
+  variables:
+    CONJUR_AUTHN_JWT_TOKEN: $ID_TOKEN_1
+  image: cyberark/authn-jwt-gitlab:alpine-1.0.0
+  script:
+    - export TF_ADDRESS=$(CONJUR_SECRET_ID="vault01/LOBUser1/safe-gitlab/terraform-state-account/address" /authn-jwt-gitlab)
+    - export TF_USERNAME=$(CONJUR_SECRET_ID="vault01/LOBUser1/safe-gitlab/terraform-state-account/username" /authn-jwt-gitlab)
+    - export TF_PASSWORD=$(CONJUR_SECRET_ID="vault01/LOBUser1/safe-gitlab/terraform-state-account/password" /authn-jwt-gitlab)
+    - env | grep TF_

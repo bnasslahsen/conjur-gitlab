@@ -1,0 +1,11 @@
+- &hosts
+  - !host
+    id: demos/demo-ec2
+    annotations:
+      gitlab: true
+      authn-jwt/$CONJUR_AUTHENTICATOR_ID/project_id: 2
+      authn-jwt/$CONJUR_AUTHENTICATOR_ID/ref: main
+      authn-jwt/$CONJUR_AUTHENTICATOR_ID/project_path: demos/demo-ec2
+- !grant
+  role: !group
+  members: *hosts

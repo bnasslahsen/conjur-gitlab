@@ -1,3 +1,0 @@
-- !grant
-  role: !group conjur/authn-jwt/$CONJUR_AUTHENTICATOR_ID/apps
-  member: !group gitlab-apps

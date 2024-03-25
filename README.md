@@ -1,10 +1,19 @@
-# Demo project for Gitlab
+# Demo project for Conjur integration with Gitlab
 
 ## Pre-requisites
 - OS Linux / MacOS
-- conjur-cli
+- conjur-cloud-cli
 
-## Gitlab Setup
+## Azure Setup
+
+- Declare Gitlab authenticator
 ```shell
-./load-policies.sh
+./load-authenticator.sh
 ```
+
+- Declare Your Apps
+```shell
+./load-hosts.sh
+```
+
+![img.png](img.png)

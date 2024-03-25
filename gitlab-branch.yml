@@ -1,0 +1,7 @@
+# conjur policy update -f gitlab-branch.yml -b data
+- !policy
+  id: $APP_GROUP
+  annotations:
+    description: All Gitlab policies
+  body:
+    - !group

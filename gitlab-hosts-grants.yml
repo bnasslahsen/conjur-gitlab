@@ -1,0 +1,3 @@
+- !grant
+  role: !group safe-gitlab/delegation/consumers
+  member: !group /$APP_GROUP

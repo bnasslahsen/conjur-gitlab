@@ -1,0 +1,8 @@
+stages:
+  - build
+retrieve-variables-via-rest:
+  stage: build
+  script:
+    - export SESSION_TOKEN=$(curl -k -s -X POST $CONJUR_AUTHENTICATE_URL -H "Content-Type:application/x-www-form-urlencoded" -H "Accept-Encoding:base64" --data-urlencode "jwt=${CI_JOB_JWT}")
+    - export GIT_PASSWORD=$(curl -k -s -H "Authorization:Token token=\"${SESSION_TOKEN}\"" $CONJUR_RETRIEVE_URL/data%2Fvault%2Fbnl-gitlab-safe%2FDatabase-MySQL-gitlab-user%2Fpassword)
+    - echo "Conjur Secret Value:" $GIT_PASSWORD
